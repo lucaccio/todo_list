@@ -10,4 +10,11 @@ public class todo_list extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_list);
     }
+
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+
+
 }
