@@ -3,8 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+    android:checkable="false"
+    android:title="@string/menu_config"
+    android:visible="true" />
+    <item
         android:checkable="false"
-        android:title="@string/menu_config"
+        android:title="@string/menu_credits"
         android:visible="true" />
     <item
         android:title="@string/menu_about"
