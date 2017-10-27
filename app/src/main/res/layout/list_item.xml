@@ -1,0 +1,8 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:paddingBottom="7dp"
+    android:text="Prova"
+    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
