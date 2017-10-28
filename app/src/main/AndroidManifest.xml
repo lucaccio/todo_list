@@ -14,10 +14,10 @@
                 <action android:name="android.intent.action.MAIN" />
                 // visibile nel launcher delle applicazioni
                 <category android:name="android.intent.category.LAUNCHER" />
-
-
             </intent-filter>
         </activity>
+        <activity android:name=".DetailsActivity" />
+        <activity android:name=".BaseActivity"></activity>
     </application>
 
 </manifest>

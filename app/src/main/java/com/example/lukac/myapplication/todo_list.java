@@ -21,17 +21,20 @@ import android.net.Uri;
 
 import java.util.ArrayList;
 
-public class todo_list extends AppCompatActivity {
+public class todo_list extends BaseActivity {
 
 
-    private Toolbar t;
+
 
     static final int PICK_CONTACT_REQUEST = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
+         setContentView(R.layout.activity_todo_list);
+        initToolbar();
 
 /*
        Context context = getApplicationContext();
@@ -56,38 +59,39 @@ public class todo_list extends AppCompatActivity {
         rl.addView(b);
 
 */
-        setContentView(R.layout.activity_todo_list);
-        Toolbar t = (Toolbar) findViewById(R.id.toolbar);
-        // setto la Toolbar come una ActionBar
-        setSupportActionBar(t);
-        //t.inflateMenu(R.menu.main_menu);
+
 
         /**
          * Creo la lista delle citta
          */
         final ListView listview = (ListView) findViewById(R.id.list_view);
-        String[] values = new String[]{"Cagliari","Sassari","Nuoro","Oristano"};
-        ArrayList<String>   al = new ArrayList<String>();
-        for(int x = 0; x < values.length; ++x) {
+        String[] values = new String[]{"Cagliari", "Sassari", "Nuoro", "Oristano"};
+        ArrayList<String> al = new ArrayList<String>();
+        for (int x = 0; x < values.length; ++x) {
             al.add(values[x]);
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, al);
         try {
             listview.setAdapter(adapter);
-        } catch(Exception e) {
-            Toast.makeText(this, e.toString(),Toast.LENGTH_SHORT);
+        } catch (Exception e) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT);
         }
 
 
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView<?> adattatore, final View componente, int pos, long id){
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adattatore, final View componente, int pos, long id) {
                 // recupero il titolo memorizzato nella riga tramite l'ArrayAdapter
                 final String titoloriga = (String) adattatore.getItemAtPosition(pos);
                 Log.d("List", "Ho cliccato sull'elemento con titolo " + titoloriga);
                 Log.d("List", "Ho cliccato sull'elemento con id " + id);
+
+                Intent i = new Intent(getApplicationContext(), DetailsActivity.class);
+                i.putExtra("Città", titoloriga);
+                i.putExtra("Id", id);
+                startActivity(i);
+
             }
-        }) ;
+        });
 
 /*
         listview.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +102,7 @@ public class todo_list extends AppCompatActivity {
         });
         */
 
-}
+    }
 /*
     public boolean getIntenti() {
         Intent i = new Intent();
