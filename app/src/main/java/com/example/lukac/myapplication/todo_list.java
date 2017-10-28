@@ -3,6 +3,7 @@ package com.example.lukac.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,7 +77,7 @@ public class todo_list extends BaseActivity {
         } catch (Exception e) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT);
         }
-
+/*
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adattatore, final View componente, int pos, long id) {
@@ -92,29 +93,29 @@ public class todo_list extends BaseActivity {
 
             }
         });
+*/
 
-/*
-        listview.setOnClickListener(new View.OnClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                //getIntenti();
+            public void onItemClick(AdapterView<?> adattatore, final View componente, int pos, long id) {
+                 getIntenti();
             }
         });
-        */
+
 
     }
-/*
+
     public boolean getIntenti() {
-        Intent i = new Intent();
+
 
         startActivityForResult(
-                new Intent(Intent.ACTION_PICK, new Uri() {
-                }) {
-                }),
+                new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI),
                 PICK_CONTACT_REQUEST);
         return true;
     }
-*/
+
+
+
 
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
@@ -122,7 +123,9 @@ public class todo_list extends BaseActivity {
             if (resultCode == RESULT_OK) {
                 // A contact was picked.  Here we will just display it
                 // to the user.
-             //   startActivity(new Intent(Intent.ACTION_VIEW, data));
+                startActivity(new Intent(Intent.ACTION_VIEW));
+            } else {
+                Log.d("a", "b");
             }
         }
     }
