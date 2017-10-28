@@ -9,10 +9,9 @@ import android.widget.TextView;
 public class DetailsActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState,R.layout.activity_details);
-
-        //setContentView(R.layout.activity_details);
+    protected final void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState );
+        setContentView(R.layout.activity_details);
 
     }
 
@@ -21,14 +20,11 @@ public class DetailsActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         Intent i = getIntent();
-
         String citta = i.getStringExtra("Città");
-        int ID = i.getIntExtra("Id",-1);
+        long ID = i.getLongExtra("Id",-1);
         Log.d("Details", "Hai selezionato la riga " + citta);
-
         TextView t = (TextView) findViewById(R.id.detailstextView);
         t.append(citta);
-
     }
 
 

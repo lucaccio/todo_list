@@ -29,12 +29,12 @@ public class todo_list extends BaseActivity {
     static final int PICK_CONTACT_REQUEST = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-         setContentView(R.layout.activity_todo_list);
-        initToolbar();
+
+        setContentView(R.layout.activity_todo_list);
+
 
 /*
        Context context = getApplicationContext();
