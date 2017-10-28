@@ -1,11 +1,13 @@
 package com.example.lukac.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.net.Uri;
 
 import java.util.ArrayList;
 
@@ -23,9 +26,12 @@ public class todo_list extends AppCompatActivity {
 
     private Toolbar t;
 
+    static final int PICK_CONTACT_REQUEST = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
 /*
        Context context = getApplicationContext();
@@ -73,15 +79,51 @@ public class todo_list extends AppCompatActivity {
         }
 
 
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> adattatore, final View componente, int pos, long id){
+                // recupero il titolo memorizzato nella riga tramite l'ArrayAdapter
+                final String titoloriga = (String) adattatore.getItemAtPosition(pos);
+                Log.d("List", "Ho cliccato sull'elemento con titolo " + titoloriga);
+                Log.d("List", "Ho cliccato sull'elemento con id " + id);
+            }
+        }) ;
+
+/*
         listview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //getIntenti();
             }
         });
+        */
 
+}
+/*
+    public boolean getIntenti() {
+        Intent i = new Intent();
 
+        startActivityForResult(
+                new Intent(Intent.ACTION_PICK, new Uri() {
+                }) {
+                }),
+                PICK_CONTACT_REQUEST);
+        return true;
     }
+*/
+
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        if (requestCode == PICK_CONTACT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                // A contact was picked.  Here we will just display it
+                // to the user.
+             //   startActivity(new Intent(Intent.ACTION_VIEW, data));
+            }
+        }
+    }
+
+
 
 
     @Override
