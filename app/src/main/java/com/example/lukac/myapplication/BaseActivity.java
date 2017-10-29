@@ -17,16 +17,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    protected Toolbar initToolbar() {
-
+    protected void initToolbar() {
         Toolbar t = (Toolbar) findViewById(R.id.toolbar);
-
-        // setto la Toolbar come una ActionBar
         setSupportActionBar(t);
-
         Log.d("Base", "Init Toolbar");
-        //invalidateOptionsMenu();
-        return t;
     }
 
     @Override

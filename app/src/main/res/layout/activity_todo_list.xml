@@ -5,37 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.example.lukac.myapplication.todo_list">
+    tools:context="com.example.lukac.myapplication.TodoListActivity">
 
-
-    <include  layout="@layout/app_bar"
-        android:id="@+id/include"></include>
-
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorControlActivated"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/include"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        android:scrollbars="vertical" />
 
-        <ListView
-            android:id="@+id/list_view"
-            android:layout_width="match_parent"
-            android:layout_height="145dp"
-            android:scrollbars="vertical" />
-
-
-        <fragment
-            android:id="@+id/fragment"
-            android:layout_width="match_parent"
-            android:layout_height="239dp"
-            android:layout_marginTop="100dp" />
-
-    </LinearLayout>
 
 </RelativeLayout>
 

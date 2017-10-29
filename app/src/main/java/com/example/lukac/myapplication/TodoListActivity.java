@@ -1,12 +1,7 @@
 package com.example.lukac.myapplication;
 
-
-import android.support.v4.app.FragmentManager;
-
-import android.support.v4.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
+
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +21,7 @@ import android.net.Uri;
 
 import java.util.ArrayList;
 
-public class TodoListActivity extends BaseActivity {
+public class TodoListActivity extends AppCompatActivity {
 
 
 
@@ -37,32 +32,6 @@ public class TodoListActivity extends BaseActivity {
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_list);
-
-
-/*
-       Context context = getApplicationContext();
-
-       // final ApplicationInfo info = context.getApplicationInfo();
-
-        RelativeLayout rl = new RelativeLayout(context);
-
-       // setContentView(R.layout.activity_todo_list);
-        final AlertDialog.Builder ad = new AlertDialog.Builder(context);
-
-        Button b = new Button(this);
-        b.setText("Close");
-        b.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                ad.setMessage( "hai fatto click" ).show();
-            }
-        });
-        rl.addView(b);
-
-*/
-
 
         /**
          * Creo la lista delle citta
@@ -98,9 +67,15 @@ public class TodoListActivity extends BaseActivity {
 */
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> adattatore, final View componente, int pos, long id) {
-                 getIntenti();
+                Log.d("ListView", "hai selezionato la riga " + pos);
+                Intent i = new Intent(getApplicationContext(), NewActivity.class);
+                i.putExtra("id", id);
+                startActivity(i);
+
+
             }
         });
 
@@ -150,14 +125,6 @@ public class TodoListActivity extends BaseActivity {
 */
 
 
-    protected void onStarte() {
-        super.onStart();
-        FragmentManager fm     = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ExampleFragment  ef =  new  ExampleFragment ();
-        ft.add(R.id.fragment, ef);
-        ft.commit();
-    }
 
 
 

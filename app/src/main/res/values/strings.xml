@@ -1,7 +1,7 @@
 <resources>
     <string name="app_title">Android App Examples</string>
     <string name="app_subtitle">Luc the developer</string>
-    <string name="app_name">To Do App</string>
+    <string name="app_name">Android App Examples</string>
     <string name="menu_config">Impostazioni</string>
     <string name="menu_credits">Credits</string>
     <string name="menu_a_list">Activity List</string>
