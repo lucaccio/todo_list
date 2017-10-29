@@ -6,34 +6,34 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 
-import static com.example.lukac.myapplication.R.menu.main_menu;
-
-public abstract class BaseActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity  {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState ) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-    }
-
-    protected Toolbar initToolbar() {
+        setContentView(R.layout.activity_main);
+        //Toolbar t = (Toolbar) initToolbar();
 
         Toolbar t = (Toolbar) findViewById(R.id.toolbar);
 
         // setto la Toolbar come una ActionBar
         setSupportActionBar(t);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
 
-        Log.d("Base", "Init Toolbar");
-        //invalidateOptionsMenu();
-        return t;
+    @Override
+    public boolean onPrepareOptionsMenu(final Menu menu) {
+        Log.d("Main", "Init Menu");
+       // getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d("Base", "Init Menu");
+       Log.d("Main", "Init Menu");
         // Inflate the menu; this adds items to the action bar if it is present.
-       // getMenuInflater().inflate(R.menu.main_menu, menu);
+        //getMenuInflater().inflate(R.menu.main_menu, menu);
 
         return super.onCreateOptionsMenu(menu);
     }

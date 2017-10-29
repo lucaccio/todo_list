@@ -1,5 +1,9 @@
 package com.example.lukac.myapplication;
 
+
+import android.support.v4.app.FragmentManager;
+
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -22,7 +26,7 @@ import android.net.Uri;
 
 import java.util.ArrayList;
 
-public class todo_list extends BaseActivity {
+public class TodoListActivity extends BaseActivity {
 
 
 
@@ -32,8 +36,6 @@ public class todo_list extends BaseActivity {
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_todo_list);
 
 
@@ -132,7 +134,7 @@ public class todo_list extends BaseActivity {
 
 
 
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -144,6 +146,19 @@ public class todo_list extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         return true;
     }
+
+*/
+
+
+    protected void onStarte() {
+        super.onStart();
+        FragmentManager fm     = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ExampleFragment  ef =  new  ExampleFragment ();
+        ft.add(R.id.fragment, ef);
+        ft.commit();
+    }
+
 
 
 

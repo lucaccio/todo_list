@@ -11,8 +11,10 @@
     app:subtitle="@string/app_subtitle"
     app:subtitleTextColor="@android:color/background_light"
     app:title="@string/app_title"
-    app:titleTextColor="@android:color/background_light"
-    tools:menu="@string/menu_credits" />
+    app:titleTextColor="@android:color/background_light">
+
+</android.support.v7.widget.Toolbar>
+
 
 
 

@@ -16,6 +16,8 @@ public class DetailsActivity extends BaseActivity {
     }
 
 
+
+
     @Override
     protected void onStart() {
         super.onStart();
