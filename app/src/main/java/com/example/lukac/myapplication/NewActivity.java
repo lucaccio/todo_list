@@ -1,6 +1,8 @@
 package com.example.lukac.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,10 +12,15 @@ import android.widget.EditText;
 
 public class NewActivity extends AppCompatActivity {
 
+    SharedPreferences pref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
+        pref = getSharedPreferences("TODO_PREF", Context.MODE_PRIVATE);
+
+
     }
 
 
@@ -31,7 +38,7 @@ public class NewActivity extends AppCompatActivity {
 
         EditText titolo = (EditText)  findViewById(R.id.editText2);
 
-
+        Log.d("Shared preference", pref.getString("prova","no string"));
 
     }
 

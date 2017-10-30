@@ -1,7 +1,9 @@
 package com.example.lukac.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +32,10 @@ public class TodoListActivity extends AppCompatActivity {
 
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
+
+        //creo una mappa per salvare i dati
+        final SharedPreferences   pref = getSharedPreferences("TODO_PREF", Context.MODE_PRIVATE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_list);
 
@@ -71,6 +77,12 @@ public class TodoListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adattatore, final View componente, int pos, long id) {
                 Log.d("ListView", "hai selezionato la riga " + pos);
+
+
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("prova", "prova eseguita con successo");
+                editor.apply();
+
                 Intent i = new Intent(getApplicationContext(), NewActivity.class);
                 i.putExtra("id", id);
                 startActivity(i);
@@ -106,6 +118,14 @@ public class TodoListActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    protected void onPause() {
+            super.onPause();
+
+    }
+
+
 
 
 
