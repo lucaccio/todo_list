@@ -40,6 +40,7 @@ public class TodoListActivity extends AppCompatActivity {
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_todo_list);
 
         /** alori da inserire nella lista dei todo */
         String[] values = new String[]{};
@@ -58,18 +59,24 @@ public class TodoListActivity extends AppCompatActivity {
             } else {
                 while(c.moveToNext())
                 {
-                    al.add( c.getString(1));
+                    String value = c.getString(1);
+                    al.add( value );
+                    Log.d("TodoActivity:add ", value);
                     //String title =  c.getString(1);
                 }
-                Log.d("TodoActivity", "Attempting to create " + dbh.getDatabaseName());
-                final ListView listview = (ListView) findViewById(R.id.list_view);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, al);
+
+
                 try {
+                    ListView listview = (ListView) findViewById(R.id.list_view);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.list_item, al);
+
                     listview.setAdapter(adapter);
                     listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                         @Override
                         public void onItemClick(AdapterView<?> adattatore, final View componente, int pos, long id) {
+
+                            /*
                             Log.d("ListView", "hai selezionato la riga " + pos);
 
                             //creo una mappa per salvare i dati
@@ -81,11 +88,12 @@ public class TodoListActivity extends AppCompatActivity {
                             Intent i = new Intent(getApplicationContext(), NewActivity.class);
                             i.putExtra("id", id);
                             startActivity(i);
-
+                                */
 
                         }
                     });
                 } catch (Exception e) {
+                    Log.d("TODO",  e.toString() );
                     Toast mToast = Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT);
                     mToast.show();
                 }
@@ -93,15 +101,22 @@ public class TodoListActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
         }
-        setContentView(R.layout.activity_todo_list);
+
 
 
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add_btn);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                        */
+
+                Intent i = new Intent(getApplicationContext(), NewActivity.class);
+                startActivity(i);
+
+
             }
         });
 
