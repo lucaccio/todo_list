@@ -26,9 +26,13 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.net.Uri;
 
+import com.example.lukac.myapplication.adapter.ItemAdapter;
 import com.example.lukac.myapplication.database.DatabaseOpenHelper;
+import com.example.lukac.myapplication.entity.Item;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TodoListActivity extends AppCompatActivity {
 
@@ -41,6 +45,60 @@ public class TodoListActivity extends AppCompatActivity {
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_list);
+        this.getItemsList();
+
+        FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add_btn);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                        */
+
+                Intent i = new Intent(getApplicationContext(), NewActivity.class);
+                startActivity(i);
+
+
+            }
+        });
+    }
+
+
+    protected void getItemsList() {
+        try {
+            ArrayList<Item>  arrayItems = new ArrayList<>();
+            SQLiteDatabase  db = new DatabaseOpenHelper(getApplicationContext()).getReadableDatabase();
+            Cursor c = db.rawQuery("SELECT * FROM todo", null);
+            Log.d("Todo", "Tuple presenti: " + c.getCount());
+            if(c.getCount() > 0)
+            {
+                Map tupla = new HashMap();
+                while(c.moveToNext())
+                {
+                    for (int index = 0; index < c.getColumnCount(); ++index) {
+                        Log.d("Todo", "Index: " + index + c.getColumnName(index) + " -> " +  c.getString(index));
+                        tupla.put(c.getColumnName(index) , c.getString(index));
+                    }
+                    Item item = new Item(tupla);
+                    arrayItems.add( item );
+                    Log.d("Todo", "Aggiungo item: " + item.toString());
+                    Log.d("Todo", "Item title: " + item.getTitle());
+                }
+            }
+
+            ItemAdapter adapter = new ItemAdapter(getApplicationContext(), R.layout.list_item, arrayItems);
+            ListView listview = (ListView) findViewById(R.id.list_view);
+            listview.setAdapter(adapter);
+
+        } catch (Exception e) {
+            Log.e("Todo Error: ", e.getMessage());
+        }
+    }
+
+
+
+    public void popolaLista() {
 
         /** alori da inserire nella lista dei todo */
         String[] values = new String[]{};
@@ -101,30 +159,8 @@ public class TodoListActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
         }
-
-
-
-        FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add_btn);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                        */
-
-                Intent i = new Intent(getApplicationContext(), NewActivity.class);
-                startActivity(i);
-
-
-            }
-        });
-
-
-
-
-
     }
+
 
 
 

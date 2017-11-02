@@ -28,7 +28,7 @@ public class NewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new);
         //pref = getSharedPreferences("TODO_PREF", Context.MODE_PRIVATE);
         SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext()).getReadableDatabase() ;
-        db.query(DatabaseOpenHelper.DATABASE_TABLE, );
+       // db.query(DatabaseOpenHelper.DATABASE_TABLE, );
 
     }
 
