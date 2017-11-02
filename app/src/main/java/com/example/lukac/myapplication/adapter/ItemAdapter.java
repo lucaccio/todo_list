@@ -50,8 +50,12 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         TextView tvTitle = (TextView) convertView.findViewById(R.id.item_title);
         TextView tvDate = (TextView) convertView.findViewById(R.id.item_date);
         // Populate the data into the template view using the data object
+
+        Log.d("Position", ": " + position);
+
         tvTitle.setText(item.getTitle());
-        tvDate.setText(item.getDate());
+        tvDate.setText(item.getPhone());
+         
         // Return the completed view to render on screen
         return convertView;
     }

@@ -77,6 +77,15 @@ public class NewActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Evita di mostrare l'activity  con i dati inseriti precedentemente alla pressione del tasto back
+     *
+     * @Override
+     */
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 
 
 
