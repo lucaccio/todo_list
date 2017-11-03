@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lukac.myapplication.database.DatabaseOpenHelper;
@@ -37,6 +38,10 @@ public class NewActivity extends BaseActivity {
 
        // db.query(DatabaseOpenHelper.DATABASE_TABLE, );
         id = getIntent().getStringExtra("ID");
+
+
+
+
     }
 
 
@@ -85,7 +90,14 @@ public class NewActivity extends BaseActivity {
 
 
     protected void saveAction() {
-        Button updateBtn = (Button)  findViewById(R.id.updateBtn);
+
+
+
+
+        TextView updateBtn = (TextView)  findViewById(R.id.toolbar_save);
+       // Button updateBtn = (Button)  findViewById(R.id.updateBtn);
+
+
         updateBtn.setText("Salva");
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +131,10 @@ public class NewActivity extends BaseActivity {
     }
 
     protected void updateAction() {
-        Button updateBtn = (Button)  findViewById(R.id.updateBtn);
+        //Button updateBtn = (Button)  findViewById(R.id.updateBtn);
+
+        TextView updateBtn = (TextView)  findViewById(R.id.toolbar_save);
+
         updateBtn.setText("Aggiorna");
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/todo_list.iml" filepath="$PROJECT_DIR$/todo_list.iml" />
-      <module fileurl="file://C:\Users\lukac\AndroidStudioProjects\todo_list\todo_list1.iml" filepath="C:\Users\lukac\AndroidStudioProjects\todo_list\todo_list1.iml" />
     </modules>
   </component>
 </project>

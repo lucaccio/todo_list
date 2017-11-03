@@ -1,10 +1,10 @@
 <resources>
     <string name="app_title">Android App Examples</string>
     <string name="app_subtitle">Luc the developer</string>
-    <string name="app_name">Android App Examples</string>
+    <string name="app_name">Agenda 1.0</string>
     <string name="menu_config">Impostazioni</string>
     <string name="menu_credits">Credits</string>
-    <string name="menu_a_list">Activity List</string>
+    <string name="menu_a_list">Agenda</string>
     <string name="menu_a_fragment">Activity Fragment</string>
 
 

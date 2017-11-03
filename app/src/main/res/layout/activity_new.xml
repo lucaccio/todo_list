@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="?attr/colorAccent"
+        android:background="@color/colorPrimary"
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -18,6 +18,7 @@
         app:subtitleTextColor="@android:color/background_light"
         app:title="@string/app_title"
         app:titleTextColor="@android:color/white" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="?attr/actionBarSize"
@@ -29,16 +30,18 @@
             <TextView
                 android:id="@+id/toolbar_save"
                 style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackground"
 
                 android:drawablePadding="8dp"
-                android:gravity="center_vertical"
+
+                android:gravity="right|fill_vertical"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:text="Save"
-                android:textAllCaps="true" />
+                android:textAllCaps="true"
+                android:textColor="@android:color/background_light" />
 
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
@@ -56,7 +59,8 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Titolo" />
+            android:text="Titolo"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/et_title"
@@ -71,6 +75,7 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:text="Telefono" />
 
         <EditText
@@ -86,6 +91,7 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:text="Note" />
 
         <EditText
@@ -101,6 +107,7 @@
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:text="Data" />
 
         <EditText
@@ -116,12 +123,13 @@
             android:id="@+id/updateBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@color/colorPrimary"
             android:elevation="4dp"
             android:ems="10"
             android:text="Salva"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="@android:color/background_light"
+            android:visibility="invisible"
             tools:layout_editor_absoluteX="66dp"
             tools:layout_editor_absoluteY="287dp" />
     </LinearLayout>
