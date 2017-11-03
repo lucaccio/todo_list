@@ -31,7 +31,11 @@
         android:background="?attr/colorControlActivated"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:subtitle="@string/app_subtitle"
+        app:subtitleTextColor="@android:color/background_light"
+        app:title="@string/app_title"
+        app:titleTextColor="@android:color/white" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

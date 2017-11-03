@@ -14,7 +14,10 @@
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
+        app:subtitle="@string/app_subtitle"
+        app:subtitleTextColor="@android:color/background_light"
+        app:title="@string/app_title"
+        app:titleTextColor="@android:color/white" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="?attr/actionBarSize"
