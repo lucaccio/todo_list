@@ -11,14 +11,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "todo_app_example1.db";
+    private static final String DATABASE_NAME = "todo_app_example2.db";
     public static final String DATABASE_TABLE = "todo";
     private static final String CREATE_DB =   "CREATE TABLE " + DATABASE_TABLE + " (" +
             "`id`	INTEGER PRIMARY KEY AUTOINCREMENT," +
             "`title`    TEXT," +
             "`phone`    TEXT," +
             "`notes` TEXT," +
-            "`date`	TEXT "  + ")" ;
+            "`timestamp`	LONG "  + ")" ;
 
     public DatabaseOpenHelper(Context context) {
         super(context, DATABASE_NAME ,null, DATABASE_VERSION);

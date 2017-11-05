@@ -18,10 +18,20 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+    protected Toolbar getToolbar(int toolbar) {
+        Toolbar t = (Toolbar) findViewById(toolbar);
+        setSupportActionBar(t);
+        return t;
+    }
+
+
     protected void initToolbar() {
         Toolbar t = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(t);
         Log.d("Base", "Init Toolbar");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
     }
 
 

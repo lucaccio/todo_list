@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,8 +32,6 @@ public class TodoListActivity extends BaseActivity  {
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_list);
-
-
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add_btn);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,10 +43,17 @@ public class TodoListActivity extends BaseActivity  {
                 logga(getLocalClassName(), "clicco il tasto aggiungi");
                 Intent i = new Intent(getApplicationContext(), NewActivity.class);
                 startActivity(i);
-
-
             }
         });
+
+        Toolbar t = getToolbar(R.id.my_toolbar);
+        setSupportActionBar(t);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //t .setNavigationIcon(R.mipmap.ic_launcher);
+        //getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+
     }
 
 
@@ -68,24 +74,66 @@ public class TodoListActivity extends BaseActivity  {
             Log.d("Todo", "Tuple presenti: " + c.getCount());
             if(c.getCount() > 0)
             {
-                Map tupla = new HashMap();
-                while(c.moveToNext())
-                {
-                    for (int index = 0; index < c.getColumnCount(); ++index) {
-                        Log.d("Todo", "Index: " + index + c.getColumnName(index) + " -> " +  c.getString(index));
-                        tupla.put(c.getColumnName(index) , c.getString(index));
+                try {
+                    Map tupla = new HashMap();
+                    while(c.moveToNext())
+                    {
+                        for (int index = 0; index < c.getColumnCount(); ++index) {
+                            Log.d("Todo", "Index: " + index + c.getColumnName(index) + " -> " +  c.getString(index));
+                            tupla.put(c.getColumnName(index) , c.getString(index));
+                        }
+                        Item item = new Item(tupla);
+                        arrayItems.add( item );
+                        //Log.d("Todo", "Aggiungo item: " + item.toString());
+                        Log.d("Todo", "Item title: " + item.getTitle());
                     }
-                    Item item = new Item(tupla);
-                    arrayItems.add( item );
-                    //Log.d("Todo", "Aggiungo item: " + item.toString());
-                    //Log.d("Todo", "Item title: " + item.getTitle());
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
             }
 
             ItemAdapter adapter = new ItemAdapter(getApplicationContext(), R.layout.list_item, arrayItems);
             ListView listview = (ListView) findViewById(R.id.list_view);
             listview.setAdapter(adapter);
+            listview.setLongClickable(true);
             listview.setOnItemClickListener(this.onItemClick());
+            listview.setOnLongClickListener(new View.OnLongClickListener() {
+
+                /**
+                 * Called when a view has been clicked and held.
+                 *
+                 * @param v The view that was clicked and held.
+                 * @return true if the callback consumed the long click, false otherwise.
+                 */
+                @Override
+                public boolean onLongClick(View v) {
+                    logga("on   long click senza item", "true");
+                    return false;
+                }
+            });
+
+            listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+                /**
+                 * Callback method to be invoked when an item in this view has been
+                 * clicked and held.
+                 * <p>
+                 * Implementers can call getItemAtPosition(position) if they need to access
+                 * the data associated with the selected item.
+                 *
+                 * @param parent   The AbsListView where the click happened
+                 * @param view     The view within the AbsListView that was clicked
+                 * @param position The position of the view in the list
+                 * @param id       The row id of the item that was clicked
+                 * @return true if the callback consumed the long click, false otherwise
+                 */
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    logga("on item long", "true");
+                    return false;
+                }
+            });
 
         } catch (Exception e) {
             Log.e("Todo Error: ", e.getMessage());

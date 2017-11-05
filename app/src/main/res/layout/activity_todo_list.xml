@@ -5,23 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+    android:theme="@style/AppTheme"
     tools:context="com.example.lukac.myapplication.TodoListActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:elevation="20dp">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_btn"
-            android:layout_width="116dp"
-            android:layout_height="49dp"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/add_margin"
-            app:backgroundTint="@color/colorPrimary"
+            android:layout_width="64dp"
+            android:layout_height="60dp"
+            android:layout_alignBottom="@+id/my_toolbar"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            app:backgroundTint="@color/colorAccent"
+            app:elevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.945"
             app:srcCompat="@android:drawable/ic_input_add" />
     </android.support.constraint.ConstraintLayout>
 
@@ -36,7 +40,11 @@
         app:subtitle="@string/app_subtitle"
         app:subtitleTextColor="@android:color/background_light"
         app:title="Agenda"
-        app:titleTextColor="@android:color/white" />
+        app:titleTextColor="@android:color/white"   >
+
+    </android.support.v7.widget.Toolbar>
+
+
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -45,9 +53,12 @@
 
         <ListView
             android:id="@+id/list_view"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:elevation="4dp"
+            android:longClickable="true"
+            android:paddingLeft="0dp"
+            android:paddingRight="2dp"
             android:scrollbars="vertical"
             tools:layout_editor_absoluteY="-8dp">
 

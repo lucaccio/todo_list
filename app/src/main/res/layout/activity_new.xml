@@ -11,13 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/colorPrimary"
+        android:elevation="6dp"
+        android:textAlignment="center"
+        android:visibility="visible"
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-        app:subtitle="@string/app_subtitle"
-        app:subtitleTextColor="@android:color/background_light"
-        app:title="@string/app_title"
-        app:titleTextColor="@android:color/white" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Crea nota"
+        app:titleTextColor="@android:color/white">
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -28,23 +30,54 @@
             android:showDividers="end">
 
             <TextView
-                android:id="@+id/toolbar_save"
-                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="?attr/selectableItemBackground"
+                android:layout_weight="1"
+                android:elevation="5dp"
 
-                android:drawablePadding="8dp"
-
-                android:gravity="right|fill_vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:text="Save"
-                android:textAllCaps="true"
-                android:textColor="@android:color/background_light" />
-
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:visibility="invisible"
+                tools:textColor="@android:color/background_light" />
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="58dp">
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:drawableStart="@drawable/ic_check_white_24dp"
+                android:text="Button"
+                android:textColor="@android:color/background_light"
+                android:textColorHighlight="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@android:color/background_light"
+                app:srcCompat="?android:attr/actionModeCloseDrawable" />
+
+
+        </RelativeLayout>
+
     </android.support.v7.widget.Toolbar>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,7 +86,8 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51">
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
 
         <TextView
             android:id="@+id/textView"
@@ -66,8 +100,11 @@
             android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:inputType="text"
+            android:textColorHint="@color/colorPrimary"
+            android:textColorLink="@color/colorPrimary"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="63dp" />
 
@@ -75,15 +112,17 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="Telefono" />
+            android:text="Telefono"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:inputType="phone|date"
+            android:textColorLink="@color/colorPrimary"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="116dp" />
 
@@ -91,13 +130,14 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="Note" />
+            android:text="Note"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/et_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:inputType="text"
             tools:layout_editor_absoluteX="8dp"
@@ -105,33 +145,28 @@
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="match_parent"
+            android:layout_width="129dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="Data" />
+            android:text="Data"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/et_date"
-            android:layout_width="match_parent"
+            android:layout_width="129dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:inputType="datetime"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="172dp" />
 
-        <Button
-            android:id="@+id/updateBtn"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/et_time"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:elevation="4dp"
             android:ems="10"
-            android:text="Salva"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button"
-            android:textColor="@android:color/background_light"
-            android:visibility="invisible"
-            tools:layout_editor_absoluteX="66dp"
-            tools:layout_editor_absoluteY="287dp" />
+            android:inputType="time" />
+
     </LinearLayout>
 
 
