@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "todo_app_example2.db";
+    private static final String DATABASE_NAME = "todo_app_example4.db";
     public static final String DATABASE_TABLE = "todo";
     private static final String CREATE_DB =   "CREATE TABLE " + DATABASE_TABLE + " (" +
             "`id`	INTEGER PRIMARY KEY AUTOINCREMENT," +
