@@ -21,6 +21,10 @@ import com.example.lukac.myapplication.database.DatabaseOpenHelper;
 import com.example.lukac.myapplication.entity.Item;
 import com.example.lukac.myapplication.fragment.DatePickerFragment;
 import com.example.lukac.myapplication.service.Tools;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,12 +51,18 @@ public class NewActivity extends BaseActivity {
         super.onStart();
         id = getIntent().getStringExtra("ID");
         if(id == null) {
-            timeTxt    = (EditText) findViewById(R.id.et_time);
-            timeTxt.setText("12:12");
+            Date date = new Date();
+
+            SimpleDateFormat sf = new SimpleDateFormat("HH:mm");
+            String tm = sf.format(date);
+            timeTxt.setText( tm );
+            sf.applyPattern("dd/MM/yyyy");
+            tm = sf.format(date);
+            dateTxt.setText(tm);
             saveAction();
         } else {
             /** carico i dati nella UI */
-            fillForm();
+            fillFormForUpdate();
             updateAction();
         }
     }
@@ -143,7 +153,11 @@ public class NewActivity extends BaseActivity {
                 values.put("phone", phone.getText().toString());
                 values.put("notes", notes.getText().toString());
                 // converto la data in long timestamp
-                Long timestamp = Tools.getTimestamp(dateTxt.getText().toString(), "dd/MM/yyyyy");
+
+                String myInsertedDate = dateTxt.getText().toString() + " " + timeTxt.getText().toString();
+                Log.d("my", "" + myInsertedDate);
+                Long timestamp = Tools.getTimestamp( myInsertedDate, "dd/MM/yyyyy HH:mm");
+                Log.d("my", "" + timestamp );
                 values.put("timestamp", timestamp);
 
                 SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext()).getWritableDatabase();
@@ -162,7 +176,7 @@ public class NewActivity extends BaseActivity {
      * Riempe le textbox per l'aggiornamento dei dati
      *
      */
-    protected void fillForm() {
+    protected void fillFormForUpdate() {
         SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext()).getReadableDatabase() ;
         Cursor c = db.rawQuery("SELECT * FROM todo WHERE id = " + id, null);
         if (c.getCount() > 0)
@@ -178,7 +192,11 @@ public class NewActivity extends BaseActivity {
                     title.setText(item.getTitle());
                     phone.setText(item.getPhone());
                     notes.setText(item.getNotes());
-                    dateTxt.setText(Tools.getFormattedDate( item.getDate(), "dd/MM/yyyy" ));
+
+                    String dateToTxt = Tools.getFormattedDate( item.getDate(), "dd/MM/yyyy" );
+Log.d("x", "" + dateToTxt);
+                    dateTxt.setText(dateToTxt);
+
                 } catch (NoSuchFieldException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {

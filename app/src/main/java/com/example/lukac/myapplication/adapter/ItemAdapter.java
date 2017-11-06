@@ -54,7 +54,11 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
         // riempio con i valori
         tvTitle.setText(item.getTitle());
-        tvDate.setText(Tools.getFormattedDate(item.getDate()));
+        tvDate.setText("");
+        if(null != item.getDate()) {
+            tvDate.setText(Tools.getFormattedDate(item.getDate()));
+        }
+
          
         // Return the completed view to render on screen
         return convertView;
