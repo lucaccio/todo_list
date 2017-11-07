@@ -192,10 +192,12 @@ public class NewActivity extends BaseActivity {
                     title.setText(item.getTitle());
                     phone.setText(item.getPhone());
                     notes.setText(item.getNotes());
-
                     String dateToTxt = Tools.getFormattedDate( item.getDate(), "dd/MM/yyyy" );
-Log.d("x", "" + dateToTxt);
+
+                    Log.d("x", "" + dateToTxt);
                     dateTxt.setText(dateToTxt);
+                    String timeToTxt = Tools.getFormattedDate( item.getDate(), "HH:mm" );
+                    timeTxt.setText(timeToTxt);
 
                 } catch (NoSuchFieldException e) {
                     e.printStackTrace();
@@ -230,8 +232,10 @@ Log.d("x", "" + dateToTxt);
                 values.put("title", title.getText().toString());
                 values.put("phone", phone.getText().toString());
                 values.put("notes", notes.getText().toString());
+
+                String myInsertedDate = dateTxt.getText().toString() + " " + timeTxt.getText().toString();
                 // converto il valore in timestamp
-                Long timestamp = Tools.getTimestamp(dateTxt.getText().toString(), "dd/MM/yyyyy");
+                Long timestamp = Tools.getTimestamp( myInsertedDate, "dd/MM/yyyyy HH:mm");
                 values.put("timestamp", timestamp);
 
                 SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext()).getWritableDatabase();

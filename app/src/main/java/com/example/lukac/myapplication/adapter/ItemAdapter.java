@@ -56,6 +56,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         tvTitle.setText(item.getTitle());
         tvDate.setText("");
         if(null != item.getDate()) {
+            Log.d("carico item in txt", "");
             tvDate.setText(Tools.getFormattedDate(item.getDate()));
         }
 

@@ -1,5 +1,7 @@
 package com.example.lukac.myapplication.service;
 
+import android.util.Log;
+
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,15 +21,19 @@ public class Tools {
      * @param pattern il formato della data selezionata
      * @return Long returnedTimestamp  la data restituita, in timestamp
      */
-    public static Long getTimestamp(String dateValue, String pattern)  {
-        Long returnedTimestamp = null;
+    public static long getTimestamp(String dateValue, String pattern)  {
+        long returnedTimestamp = 0;
         SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.ITALY);
         try {
             Date date = formatter.parse(dateValue);
+            Log.d("LONGreturnedTimestamp", ""  + date.getTime());
             returnedTimestamp  = date.getTime();
-        } catch (ParseException pe) {
-            pe.getStackTrace();
+
+        } catch (ParseException p) {
+            Log.e("error", "" + p.getMessage());
+            p.printStackTrace();
         }
+        Log.d("returnedTimestamp", ""  + returnedTimestamp);
         return returnedTimestamp;
     }
 
@@ -38,6 +44,7 @@ public class Tools {
      * @return
      */
     public static Date timestampToDate(String timestamp) {
+        Log.d("timestampToData", "");
         if(null == timestamp) {
             throw new NullPointerException("Valore di timestamp nullo");
         }
@@ -77,10 +84,10 @@ public class Tools {
         if(null == timestamp) {
             return formatted;
         }
-
         Date date = timestampToDate(timestamp);
         SimpleDateFormat formatter = new java.text.SimpleDateFormat(pattern);
-        formatter.format(date);
+        formatted = formatter.format(date);
+        Log.d("formatte ", "" + formatted);
         return formatted;
     }
 
