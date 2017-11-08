@@ -16,20 +16,27 @@ public class Item {
     private String title;
     private String phone;
     private String notes;
-    private String date;
+    private String timestamp;
 
     public Item(Map<String, String> values) throws NoSuchFieldException, IllegalAccessException {
 
         Iterator<String> iterator = values.keySet().iterator();
         while(iterator.hasNext()){
+            try {
             String key = iterator.next();
-            //Log.d("Item c name: ", key);
-
-            String value = values.get(key);
+            //reflection
             Field f = getClass().getDeclaredField(key);
             f.setAccessible(true);
-            try {
-                f.set(this, value);
+            Class type = f.getType();
+
+                if (Long.class.equals(type) || long.class.equals(type)) {
+                    Long lValue = Long.getLong(values.get(key));
+                    f.set(this, lValue);
+                    return;
+                } else {
+                    String value = values.get(key);
+                    f.set(this, value);
+                }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (IllegalArgumentException e) {
@@ -68,7 +75,7 @@ public class Item {
     }
 
     public String getDate() {
-        return date;
+        return timestamp;
     }
 
     public void setTitle(String title) {

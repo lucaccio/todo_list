@@ -1,125 +1,220 @@
 package com.example.lukac.myapplication;
 
-import android.annotation.SuppressLint;
+
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.DialogFragment;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+
 import android.widget.Toast;
+
 
 import com.example.lukac.myapplication.database.DatabaseOpenHelper;
 import com.example.lukac.myapplication.entity.Item;
+import com.example.lukac.myapplication.fragment.DatePickerFragment;
+import com.example.lukac.myapplication.service.Tools;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class NewActivity extends BaseActivity {
 
-    //SharedPreferences pref;
-
-    EditText title, phone, notes, date;
-
     String id;
+
+    EditText title,
+             phone,
+             notes,
+             dateTxt,
+             timeTxt
+                    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
-        //pref = getSharedPreferences("TODO_PREF", Context.MODE_PRIVATE);
-
-       // db.query(DatabaseOpenHelper.DATABASE_TABLE, );
-        id = getIntent().getStringExtra("ID");
+        createUI();
     }
-
 
     @Override
     protected void onStart() {
         super.onStart();
-        title = (EditText) findViewById(R.id.et_title);
-        phone = (EditText) findViewById(R.id.et_phone);
-        notes = (EditText) findViewById(R.id.et_notes);
-        date = (EditText) findViewById(R.id.et_date);
-
+        id = getIntent().getStringExtra("ID");
         if(id == null) {
+            Date date = new Date();
+
+            SimpleDateFormat sf = new SimpleDateFormat("HH:mm");
+            String tm = sf.format(date);
+            timeTxt.setText( tm );
+            sf.applyPattern("dd/MM/yyyy");
+            tm = sf.format(date);
+            dateTxt.setText(tm);
             saveAction();
         } else {
-            logga("id", " " + id);
-           // logga("itemId", "" + id);
-            SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext()).getReadableDatabase() ;
-            Cursor c = db.rawQuery("SELECT * FROM todo WHERE id = " + id, null);
-            if (c.getCount() > 0)
-            {
-                Map tupla = new HashMap();
-                while(c.moveToNext())
-                {
-                    for (int index = 0; index < c.getColumnCount(); ++index) {
-
-                        tupla.put(c.getColumnName(index) , c.getString(index));
-                    }
-                    try {
-                        Item item = new Item(tupla );
-                        title.setText(item.getTitle());
-                        phone.setText(item.getPhone());
-                        notes.setText(item.getNotes());
-                        date.setText(item.getDate());
-
-                    } catch (NoSuchFieldException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
+            /** carico i dati nella UI */
+            fillFormForUpdate();
             updateAction();
         }
     }
 
 
+    /**
+     * Impostazioni dell'interfaccia utente
+     *
+     */
+    protected void createUI() {
+        Log.w("formatted", "createui");
+        ImageButton backButton = (ImageButton) findViewById(R.id.back_btn);
+        title   = (EditText) findViewById(R.id.et_title);
+        phone   = (EditText) findViewById(R.id.et_phone);
+        notes   = (EditText) findViewById(R.id.et_notes);
+        dateTxt = (EditText) findViewById(R.id.et_date);
+        timeTxt    = (EditText) findViewById(R.id.et_time);
+
+        dateTxt.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogFragment();
+            }
+        });
+
+        dateTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    showDialogFragment();
+                }
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener(){
+            /**
+             * Called when a view has been clicked.
+             *
+             * @param v The view that was clicked.
+             */
+            @Override
+            public void onClick(View v) {
+                onPause();
+            }
+        });
+    }
+
+
+    /**
+     * Mostra il fragment con il calendario
+     *
+     */
+    protected void showDialogFragment() {
+
+        String formattedDate = dateTxt.getText().toString();
+        //Log.w("formatted", "" + formattedDate);
+        DialogFragment newFragment = new DatePickerFragment( );
+        if(!formattedDate.isEmpty()) {
+            Bundle args = new Bundle();
+            args.putString("formattedDate", formattedDate);
+            newFragment.setArguments(args);
+        }
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+
+
+    /**
+     * Inserisco una nuova voce nel database
+     *
+     */
     protected void saveAction() {
-        Button updateBtn = (Button)  findViewById(R.id.updateBtn);
-        updateBtn.setText("Salva");
-        updateBtn.setOnClickListener(new View.OnClickListener() {
+
+        Button saveBtn = (Button)  findViewById(R.id.saveButton);
+        saveBtn.setText("Salva");
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(title.getText().toString().isEmpty()) {
-                    Log.d("Button Save", "Manca il titolo...salvataggio non eseguito");
                     Toast mToast = Toast.makeText(getApplicationContext(), "Inserire un Titolo", Toast.LENGTH_SHORT);
                     mToast.show();
                     return;
                 }
-                Log.d("Button Save", "Save");
                 Toast mToast = Toast.makeText(getApplicationContext(), "Salvataggio in corso...", Toast.LENGTH_SHORT);
                 mToast.show();
                 ContentValues values = new ContentValues();
                 values.put("title", title.getText().toString());
                 values.put("phone", phone.getText().toString());
                 values.put("notes", notes.getText().toString());
-                //values.put("date", notes.getText().toString());
+                // converto la data in long timestamp
+
+                String myInsertedDate = dateTxt.getText().toString() + " " + timeTxt.getText().toString();
+                Log.d("my", "" + myInsertedDate);
+                Long timestamp = Tools.getTimestamp( myInsertedDate, "dd/MM/yyyyy HH:mm");
+                Log.d("my", "" + timestamp );
+                values.put("timestamp", timestamp);
+
                 SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext()).getWritableDatabase();
                 try {
                     db.insert(DatabaseOpenHelper.DATABASE_TABLE,null, values);
-                    //Intent i = new Intent(getApplicationContext(), TodoListActivity.class);
-                    //startActivity(i);
                     onPause();
                 } catch (Exception e) {
-                    Log.e("DB.insert", e.getMessage());
+                    Log.e("DB.insert: ", e.getMessage());
                 }
 
             }
         });
     }
 
+    /**
+     * Riempe le textbox per l'aggiornamento dei dati
+     *
+     */
+    protected void fillFormForUpdate() {
+        SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext()).getReadableDatabase() ;
+        Cursor c = db.rawQuery("SELECT * FROM todo WHERE id = " + id, null);
+        if (c.getCount() > 0)
+        {
+            Map tupla = new HashMap();
+            while(c.moveToNext())
+            {
+                for (int index = 0; index < c.getColumnCount(); ++index) {
+                    tupla.put(c.getColumnName(index) , c.getString(index));
+                }
+                try {
+                    Item item = new Item(tupla);
+                    title.setText(item.getTitle());
+                    phone.setText(item.getPhone());
+                    notes.setText(item.getNotes());
+                    String dateToTxt = Tools.getFormattedDate( item.getDate(), "dd/MM/yyyy" );
+
+                    Log.d("x", "" + dateToTxt);
+                    dateTxt.setText(dateToTxt);
+                    String timeToTxt = Tools.getFormattedDate( item.getDate(), "HH:mm" );
+                    timeTxt.setText(timeToTxt);
+
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Aggiorno la voce del database
+     */
     protected void updateAction() {
-        Button updateBtn = (Button)  findViewById(R.id.updateBtn);
+
+        Button updateBtn = (Button)  findViewById(R.id.saveButton);
+
         updateBtn.setText("Aggiorna");
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +232,12 @@ public class NewActivity extends BaseActivity {
                 values.put("title", title.getText().toString());
                 values.put("phone", phone.getText().toString());
                 values.put("notes", notes.getText().toString());
-                values.put("date", date.getText().toString());
+
+                String myInsertedDate = dateTxt.getText().toString() + " " + timeTxt.getText().toString();
+                // converto il valore in timestamp
+                Long timestamp = Tools.getTimestamp( myInsertedDate, "dd/MM/yyyyy HH:mm");
+                values.put("timestamp", timestamp);
+
                 SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext()).getWritableDatabase();
                 try {
                     String where = "id = ?";

@@ -21,12 +21,15 @@ public class MainActivity extends AppCompatActivity  {
         Toolbar t = (Toolbar) findViewById(R.id.my_toolbar);
         // setto la Toolbar come una ActionBar
         setSupportActionBar(t);
+       // getSupportActionBar().setDisplayShowTitleEnabled(false);
+       // getSupportActionBar().setDisplayShowHomeEnabled(true);
+     //   getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
     }
 
     @Override
     public boolean onPrepareOptionsMenu(final Menu menu) {
-        Log.d("Main", "onPrepare");
+        //Log.d("Main", "onPrepare");
        // getMenuInflater().inflate(R.menu.main_menu, menu);
 
 
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity  {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-       Log.d("Main", "OnCreate");
+       //Log.d("Main", "OnCreate");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu, menu);
 

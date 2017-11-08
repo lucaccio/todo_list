@@ -11,11 +11,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:theme="@style/AppTheme.Base"
         tools:ignore="ExtraText">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/AppTheme.Base">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 // visibile nel launcher delle applicazioni
@@ -24,7 +25,8 @@
         </activity>
         <activity android:name=".DetailsActivity" />
         <activity android:name=".TodoListActivity" />
-        <activity android:name=".NewActivity" />
+        <activity android:name=".NewActivity"
+            android:theme="@style/AppTheme.Base" />
     </application>
 
 </manifest>

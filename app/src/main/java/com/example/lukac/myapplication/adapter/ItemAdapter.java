@@ -13,6 +13,7 @@ import java.util.List;
 
 import com.example.lukac.myapplication.R;
 import com.example.lukac.myapplication.entity.Item;
+import com.example.lukac.myapplication.service.Tools;
 
 import java.util.List;
 
@@ -41,17 +42,24 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         Item item  = getItem(position);
+        //Log.e("item", ": " + item.getId());
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
         // Lookup view for data population
         TextView tvTitle = (TextView) convertView.findViewById(R.id.item_title);
-        TextView tvDate = (TextView) convertView.findViewById(R.id.item_date);
+        TextView tvDate  = (TextView) convertView.findViewById(R.id.item_date);
         // Populate the data into the template view using the data object
 
+        // riempio con i valori
         tvTitle.setText(item.getTitle());
-        tvDate.setText(item.getPhone());
+        tvDate.setText("");
+        if(null != item.getDate()) {
+            Log.d("carico item in txt", "");
+            tvDate.setText(Tools.getFormattedDate(item.getDate()));
+        }
+
          
         // Return the completed view to render on screen
         return convertView;
