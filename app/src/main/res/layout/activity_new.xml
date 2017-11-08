@@ -70,6 +70,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="10dp"
                 android:tint="@android:color/background_light"
                 app:srcCompat="?android:attr/actionModeCloseDrawable" />
 
