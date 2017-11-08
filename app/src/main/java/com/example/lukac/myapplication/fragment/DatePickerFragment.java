@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -34,6 +35,7 @@ public   class DatePickerFragment extends DialogFragment
 
 
 
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -58,22 +60,19 @@ public   class DatePickerFragment extends DialogFragment
     public void onDateSet(DatePicker view, int year, int month, int day) {
 
         EditText dateTxt = (EditText) getActivity().findViewById(R.id.et_date);
-
-
         dateTxt.setText(day + "/" + (month +1) + "/" + year);
-
+        /*
         TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
             EditText timeTxt = (EditText) getActivity().findViewById(R.id.et_time);
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                Log.d("hour: ", "" + hourOfDay);
-                Log.d("minute: ", "" + minute);
-                timeTxt.setText(hourOfDay + "::" + minute);
+                timeTxt.setText(String.format("%02d:%02d", hourOfDay, minute));
             }
-        }, 0, 0, false);
-        timePickerDialog.show();
+        }, 0, 0, true);
 
+        timePickerDialog.show();
+*/
 
     }
 }

@@ -71,7 +71,7 @@ public class TodoListActivity extends BaseActivity  {
             ArrayList<Item>  arrayItems = new ArrayList<>();
             SQLiteDatabase  db = new DatabaseOpenHelper(getApplicationContext()).getReadableDatabase();
             Cursor c = db.rawQuery("SELECT * FROM todo", null);
-            Log.d("Todo", "Tuple presenti: " + c.getCount());
+            //Log.d("Todo", "Tuple presenti: " + c.getCount());
             if(c.getCount() > 0)
             {
                 try {
@@ -79,13 +79,13 @@ public class TodoListActivity extends BaseActivity  {
                     while(c.moveToNext())
                     {
                         for (int index = 0; index < c.getColumnCount(); ++index) {
-                            Log.d("Todo", "Index: " + index + c.getColumnName(index) + " -> " +  c.getString(index));
+                           // Log.d("Todo", "Index: " + index + c.getColumnName(index) + " -> " +  c.getString(index));
                             tupla.put(c.getColumnName(index) , c.getString(index));
                         }
                         Item item = new Item(tupla);
                         arrayItems.add( item );
                         //Log.d("Todo", "Aggiungo item: " + item.toString());
-                        Log.d("Todo", "Item title: " + item.getTitle());
+                      //  Log.d("Todo", "Item title: " + item.getTitle());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -108,7 +108,7 @@ public class TodoListActivity extends BaseActivity  {
                  */
                 @Override
                 public boolean onLongClick(View v) {
-                    logga("on   long click senza item", "true");
+                   // logga("on   long click senza item", "true");
                     return false;
                 }
             });
@@ -130,7 +130,7 @@ public class TodoListActivity extends BaseActivity  {
                  */
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    logga("on item long", "true");
+                   // logga("on item long", "true");
                     return false;
                 }
             });
@@ -151,7 +151,7 @@ public class TodoListActivity extends BaseActivity  {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Item item = (Item)parent.getAdapter().getItem(position);
-                    logga("item", "position: " + position+ " - item id: " + item.getId());
+                    //logga("item", "position: " + position+ " - item id: " + item.getId());
                     String s = item.getId();
                     Intent i = new Intent(getApplicationContext(), NewActivity.class);
                     i.putExtra("ID",  s );

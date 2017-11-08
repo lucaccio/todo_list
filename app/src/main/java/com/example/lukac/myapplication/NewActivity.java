@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.lukac.myapplication.database.DatabaseOpenHelper;
 import com.example.lukac.myapplication.entity.Item;
 import com.example.lukac.myapplication.fragment.DatePickerFragment;
+import com.example.lukac.myapplication.fragment.TimePickerFragment;
 import com.example.lukac.myapplication.service.Tools;
 
 import java.text.SimpleDateFormat;
@@ -51,14 +52,16 @@ public class NewActivity extends BaseActivity {
         super.onStart();
         id = getIntent().getStringExtra("ID");
         if(id == null) {
-            Date date = new Date();
 
+            // imposto la data e l'ora attuale nella ui
+            Date date = new Date();
             SimpleDateFormat sf = new SimpleDateFormat("HH:mm");
             String tm = sf.format(date);
             timeTxt.setText( tm );
             sf.applyPattern("dd/MM/yyyy");
             tm = sf.format(date);
             dateTxt.setText(tm);
+
             saveAction();
         } else {
             /** carico i dati nella UI */
@@ -84,7 +87,7 @@ public class NewActivity extends BaseActivity {
         dateTxt.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogFragment();
+                showDateDialogFragment();
             }
         });
 
@@ -92,10 +95,27 @@ public class NewActivity extends BaseActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus) {
-                    showDialogFragment();
+                    showDateDialogFragment();
                 }
             }
         });
+
+        timeTxt.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimeDialogFragment();
+            }
+        });
+
+        timeTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    showTimeDialogFragment();
+                }
+            }
+        });
+
 
         backButton.setOnClickListener(new View.OnClickListener(){
             /**
@@ -115,7 +135,7 @@ public class NewActivity extends BaseActivity {
      * Mostra il fragment con il calendario
      *
      */
-    protected void showDialogFragment() {
+    protected void showDateDialogFragment() {
 
         String formattedDate = dateTxt.getText().toString();
         //Log.w("formatted", "" + formattedDate);
@@ -128,6 +148,21 @@ public class NewActivity extends BaseActivity {
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    /**
+     *
+     */
+    protected void showTimeDialogFragment() {
+
+        String formattedTime = timeTxt.getText().toString();
+        //Log.w("formatted", "" + formattedDate);
+        DialogFragment newFragment = new TimePickerFragment();
+        if(!formattedTime.isEmpty()) {
+            Bundle args = new Bundle();
+            args.putString("formattedTime", formattedTime);
+            newFragment.setArguments(args);
+        }
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
 
 
     /**
@@ -153,7 +188,7 @@ public class NewActivity extends BaseActivity {
                 values.put("phone", phone.getText().toString());
                 values.put("notes", notes.getText().toString());
                 // converto la data in long timestamp
-
+                Log.d("testo time: ", "" + timeTxt.getText().toString());
                 String myInsertedDate = dateTxt.getText().toString() + " " + timeTxt.getText().toString();
                 Log.d("my", "" + myInsertedDate);
                 Long timestamp = Tools.getTimestamp( myInsertedDate, "dd/MM/yyyyy HH:mm");
